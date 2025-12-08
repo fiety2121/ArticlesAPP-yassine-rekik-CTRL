@@ -20,10 +20,13 @@ jobs:
           php-version: "7.4"
 
       - name: Install dependencies
-        run: composer install
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Make vendor binaries executable (optional)
+        run: chmod +x vendor/bin/* || true
 
       - name: Run code quality
-        run: ./vendor/bin/phpcs app/
+        run: php ./vendor/bin/phpcs app/
 
       - name: Run unit tests
-        run: ./vendor/bin/phpunit
+        run: php ./vendor/bin/phpunit
