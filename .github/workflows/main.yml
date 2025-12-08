@@ -69,12 +69,6 @@ jobs:
           file: ./lesson3_IntegrationContinue/exemple1_helloapp_ci//Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/myhello_app:${{ github.sha }}
-
-<<<<<<< HEAD
-
-=======
-      # (previously merged content removed here during rebase)
-
   # PHP CI job for the subproject
   php-ci:
     name: PHP CI for exemple2_articlesapp_ci
