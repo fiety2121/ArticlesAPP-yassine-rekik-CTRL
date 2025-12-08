@@ -27,7 +27,8 @@ jobs:
         run: chmod +x vendor/bin/* || true
 
       - name: Run code quality check (PHPCS)
-        run: php ./vendor/bin/phpcs --standard=phpcs.xml.dist app/ || true
+        working-directory: exemple2_articlesapp_ci
+        run: php ./vendor/bin/phpcs --standard=phpcs.xml.dist app/ || exit 0
 
       - name: Run unit tests (PHPUnit)
         run: php ./vendor/bin/phpunit
