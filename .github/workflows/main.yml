@@ -98,4 +98,3 @@ jobs:
       - name: Run unit tests
         working-directory: exemple2_articlesapp_ci
         run: php ./vendor/bin/phpunit
->>>>>>> 2ff28a2 (CI: run phpcs/phpunit with php to avoid vendor binary permission issues)
