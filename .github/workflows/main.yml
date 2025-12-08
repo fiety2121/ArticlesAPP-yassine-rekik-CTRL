@@ -64,5 +64,5 @@ jobs:
         with:
           context: ./exemple2_articlesapp_ci/
           file: ./exemple2_articlesapp_ci/Dockerfile
-          push: ${{ secrets.DOCKER_USERNAME != '' }}
-          tags: ${{ secrets.DOCKER_USERNAME }}/myhello_app:${{ github.sha }}
+          push: true
+          tags: ${{ secrets.yassine456 }}/myhello_app:${{ github.sha }}
