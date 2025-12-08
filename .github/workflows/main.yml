@@ -70,4 +70,34 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/myhello_app:${{ github.sha }}
 
+<<<<<<< HEAD
 
+=======
+      # (previously merged content removed here during rebase)
+
+  # PHP CI job for the subproject
+  php-ci:
+    name: PHP CI for exemple2_articlesapp_ci
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+
+      - name: Install dependencies
+        working-directory: exemple2_articlesapp_ci
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Run code quality
+        working-directory: exemple2_articlesapp_ci
+        run: php ./vendor/bin/phpcs app/
+
+      - name: Run unit tests
+        working-directory: exemple2_articlesapp_ci
+        run: php ./vendor/bin/phpunit
+>>>>>>> 2ff28a2 (CI: run phpcs/phpunit with php to avoid vendor binary permission issues)
