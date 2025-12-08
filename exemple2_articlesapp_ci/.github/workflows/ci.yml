@@ -1,0 +1,29 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run code quality
+        run: ./vendor/bin/phpcs app/
+
+      - name: Run unit tests
+        run: ./vendor/bin/phpunit

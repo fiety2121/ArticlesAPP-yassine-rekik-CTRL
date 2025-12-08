@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"ArticleTest::testTrueIsTrue":0.006,"ArticleTest::testGetTitle":0.008,"ArticleTest::testGetPrice":0,"ArticleTest::testSetPrice":0}}
