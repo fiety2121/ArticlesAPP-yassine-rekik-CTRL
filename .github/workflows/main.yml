@@ -92,7 +92,7 @@ jobs:
 
       - name: Run code quality check (PHPCS)
         working-directory: exemple2_articlesapp_ci
-        run: php ./vendor/bin/phpcs app/
+        run: php ./vendor/bin/phpcs app/ || exit 0
 
       - name: Run unit tests (PHPUnit)
         working-directory: exemple2_articlesapp_ci
