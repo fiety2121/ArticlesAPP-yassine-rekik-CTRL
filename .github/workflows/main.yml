@@ -93,6 +93,10 @@ jobs:
         working-directory: exemple2_articlesapp_ci
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
+      - name: Make vendor binaries executable (optional)
+        working-directory: exemple2_articlesapp_ci
+        run: chmod +x vendor/bin/* || true
+
       - name: Run code quality
         working-directory: exemple2_articlesapp_ci
         run: php ./vendor/bin/phpcs app/
