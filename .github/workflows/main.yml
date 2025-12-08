@@ -40,28 +40,29 @@ jobs:
 
   # TÂCHE 2 : CONSTRUCTION (BUILD) ET PUSH DE L'IMAGE DOCKER
   build-and-push:
-  name: Build et Push de l'image Docker
-  runs-on: ubuntu-latest
-  needs: php-ci
-  if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
+    name: Build et Push de l'image Docker
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
+    needs: php-ci
+    continue-on-error: true  # Don't fail if Docker credentials aren't set
+    
+    steps:
+      - name: Récupération du code (Checkout)
+        uses: actions/checkout@v6
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v6
+      - name: Connexion au Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Configuration de Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Setup Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: Build & Push
-      uses: docker/build-push-action@v6
-      with:
-        context: ./exemple2_articlesapp_ci/
-        file: ./exemple2_articlesapp_ci/Dockerfile
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/myhello_app:${{ github.sha }}
+      - name: Build et push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./exemple2_articlesapp_ci/
+          file: ./exemple2_articlesapp_ci/Dockerfile
+          push: ${{ secrets.DOCKER_USERNAME != '' }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/myhello_app:${{ github.sha }}
