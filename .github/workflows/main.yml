@@ -39,11 +39,11 @@ jobs:
         run: npm test --if-present
 
 
-  # TÂCHE 2 : CONSTRUCTION (BUILD) ET PUSH DE L'IMAGE DOCKER
+  # TÂCHE 2 : CONSTRUCTION (BUILD) ET PUSH DE L'IMAGE DOCKER (SKIPPED - requires DOCKER_USERNAME/PASSWORD secrets)
   build-and-push:
     name: Build et Push de l'image Docker
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' # Pousse l'image uniquement lors des merges réels, pas sur les PRs
+    if: false  # Skip: Requires Docker Hub credentials
     
     steps:
       - name: Récupération du code (Checkout)
