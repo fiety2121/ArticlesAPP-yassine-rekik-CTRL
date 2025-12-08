@@ -4,10 +4,8 @@ name: Pipeline CI/CD
 on:
   push:
     branches: [ "main" ]
-    paths: ["lesson3_IntegrationContinue/exemple1_helloapp_ci/**"]
   pull_request:
     branches: [ "main" ]
-    paths: ["lesson3_IntegrationContinue/exemple1_helloapp_ci/**"]
 
 jobs:
   # TÂCHE 1 : VÉRIFICATION DE LA QUALITÉ DU CODE et LANCER TESTS UNITAIRES
@@ -69,9 +67,10 @@ jobs:
           file: ./lesson3_IntegrationContinue/exemple1_helloapp_ci//Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/myhello_app:${{ github.sha }}
-  # PHP CI job for the subproject
+
+  # TÂCHE 3 : PHP CI pour le subproject exemple2_articlesapp_ci
   php-ci:
-    name: PHP CI for exemple2_articlesapp_ci
+    name: PHP CI - exemple2_articlesapp_ci
     runs-on: ubuntu-latest
 
     steps:
@@ -87,14 +86,14 @@ jobs:
         working-directory: exemple2_articlesapp_ci
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Make vendor binaries executable (optional)
+      - name: Make vendor binaries executable
         working-directory: exemple2_articlesapp_ci
         run: chmod +x vendor/bin/* || true
 
-      - name: Run code quality
+      - name: Run code quality check (PHPCS)
         working-directory: exemple2_articlesapp_ci
         run: php ./vendor/bin/phpcs app/
 
-      - name: Run unit tests
+      - name: Run unit tests (PHPUnit)
         working-directory: exemple2_articlesapp_ci
         run: php ./vendor/bin/phpunit
