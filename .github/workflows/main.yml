@@ -42,8 +42,9 @@ jobs:
   build-and-push:
     name: Build et Push de l'image Docker
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: php-ci  # Wait for PHP CI to pass first
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
+    needs: php-ci
+    continue-on-error: true  # Don't fail if Docker credentials aren't set
     
     steps:
       - name: Récupération du code (Checkout)
@@ -63,5 +64,5 @@ jobs:
         with:
           context: ./exemple2_articlesapp_ci/
           file: ./exemple2_articlesapp_ci/Dockerfile
-          push: true
+          push: ${{ secrets.DOCKER_USERNAME != '' }}
           tags: ${{ secrets.DOCKER_USERNAME }}/myhello_app:${{ github.sha }}
