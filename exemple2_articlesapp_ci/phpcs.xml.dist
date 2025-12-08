@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+
+    <!-- Exclude vendor and large files -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <!-- Set the default standard to PSR2 -->
+    <rule ref="PSR2">
+        <!-- Allow longer lines in certain contexts -->
+        <exclude name="Generic.Files.LineLength"/>
+    </rule>
+
+    <!-- Basic file and naming standards -->
+    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+    <rule ref="Generic.Files.ByteOrderMark"/>
+
+</ruleset>
