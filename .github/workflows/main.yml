@@ -20,13 +20,13 @@ jobs:
           php-version: "7.4"
 
       - name: Install dependencies
-        working-directory: exemple2_articlesapp_ci/app
+        working-directory: exemple2_articlesapp_ci
         run: composer install
 
       - name: Run code quality
-        working-directory: exemple2_articlesapp_ci/app
+        working-directory: exemple2_articlesapp_ci
         run: ./vendor/bin/phpcs app/
 
       - name: Run unit tests
-        working-directory: exemple2_articlesapp_ci/app
+        working-directory: exemple2_articlesapp_ci
         run: ./vendor/bin/phpunit
