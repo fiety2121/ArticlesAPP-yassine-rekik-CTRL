@@ -1,6 +1,5 @@
 name: Pipeline CI/CD
 
-# Déclenche le workflow lors d'un push ou d'une pull request vers la branche main
 on:
   push:
     branches: [ "main" ]
@@ -8,7 +7,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # TÂCHE 1 : PHP CI pour le subproject exemple2_articlesapp_ci
   php-ci:
     name: PHP CI - exemple2_articlesapp_ci
     runs-on: ubuntu-latest
@@ -38,13 +36,12 @@ jobs:
         working-directory: exemple2_articlesapp_ci
         run: php ./vendor/bin/phpunit
 
-  # TÂCHE 2 : CONSTRUCTION (BUILD) ET PUSH DE L'IMAGE DOCKER
   build-and-push:
     name: Build et Push de l'image Docker
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
     needs: php-ci
-    continue-on-error: true  # Don't fail if Docker credentials aren't set
+    continue-on-error: true  
     
     steps:
       - name: Récupération du code (Checkout)
